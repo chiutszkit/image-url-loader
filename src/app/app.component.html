@@ -1,0 +1,44 @@
+<html>
+  <div>
+    <button type="button" (click)="changeUri({status: 200})">200 OK</button>
+    <button type="button" (click)="changeUri({status: 404})">404 Not Found</button>
+    <p>Use HTTP Get to load image (Can Return Size, Image Type and Error)</p>
+    <img *ngIf="!isImageLoadingHttp" [src]="imageURLHttp"/>
+    <div *ngIf="isImageLoadingHttp">
+      <div class="loading-container"><div class="loader"></div></div>
+    </div>
+    <ng-container *ngIf="imageErrorCode >= 400">
+      <ng-container *ngIf="imageErrorCode == 404; else otherError">
+        <img src="assets/image/not_found.png">
+      </ng-container>
+      <ng-template #otherError>
+        <img src="assets/image/error.png">
+      </ng-template>
+    </ng-container>
+  </div>
+  <div>
+    <p>Using Image Service</p>
+    <div id="image-container"></div>
+    <div *ngIf="isImageLoadingIS">
+      <div class="loading-container"><div class="loader"></div></div>
+    </div>
+    <div *ngIf="isImageErrorIS">
+      <img src="assets/image/error.png">
+    </div>
+  </div>
+  <div>
+    <p>Use Fetch to load image (Can Return Status)</p>
+    <img id="my-fetch-image-container"/>
+    <div *ngIf="isImageLoadingFetch">
+      <div class="loading-container"><div class="loader"></div></div>
+    </div>
+    <ng-container *ngIf="imageErrorCode >= 400">
+      <ng-container *ngIf="imageErrorCode == 404; else otherError">
+        <img src="assets/image/not_found.png">
+      </ng-container>
+      <ng-template #otherError>
+        <img src="assets/image/error.png">
+      </ng-template>
+    </ng-container>
+  </div>
+</html>
